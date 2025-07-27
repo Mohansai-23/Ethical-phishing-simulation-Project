@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Campaign Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .summary {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .filters a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Phishing Campaign Dashboard</h1>
+
+    <div class="summary">
+        <h3>📌 Campaign Summary</h3>
+        <p><strong>Total Emails Sent:</strong> {{ total_emails_sent }}</p>
+        <p><strong>Emails Opened:</strong> {{ total_opens }} ({{ open_rate }}%)</p>
+        <p><strong>Links Clicked:</strong> {{ total_clicks }} ({{ success_rate }}%)</p>
+    </div>
+
+    <div class="filters">
+        <h3>🔍 Filter Data:</h3>
+        <a href="/dashboard?type=all">Show All</a>
+        <a href="/dashboard?type=opens">Only Opens</a>
+        <a href="/dashboard?type=clicks">Only Clicks</a>
+    </div>
+
+    {% if open_data %}
+        <h2>📬 Emails Opened</h2>
+        <table>
+            <tr><th>Email</th><th>Timestamp</th></tr>
+            {% for email, timestamp in open_data %}
+                <tr><td>{{ email }}</td><td>{{ timestamp }}</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if click_data %}
+        <h2>🔗 Link Clicks</h2>
+        <table>
+            <tr><th>Email</th><th>Timestamp</th></tr>
+            {% for email, timestamp in click_data %}
+                <tr><td>{{ email }}</td><td>{{ timestamp }}</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
